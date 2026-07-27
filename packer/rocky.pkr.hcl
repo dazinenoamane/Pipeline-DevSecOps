@@ -1,45 +1,77 @@
-packer {
-  required_plugins {
-    qemu = {
-      version = ">=1.1.0"
-    }
-  }
-}
+source "proxmox-iso" "rocky9" {
 
-source "qemu" "rocky" {
+  proxmox_url = var.proxmox_url
+
+  username = var.proxmox_token_id
+  token    = var.proxmox_token_secret
+
+
+  node = var.proxmox_node
+
+
+  vm_id = var.vm_id
+
+
   vm_name = var.vm_name
 
-  iso_url = var.iso_path
 
+  iso_file = var.iso_file
+
+
+  cores  = var.cores
   memory = var.memory
-  cpus   = var.cpus
 
-  disk_size = var.disk_size
 
-  format = "qcow2"
+  disks {
+    disk_size = var.disk_size
+    storage   = var.storage
+    type      = "scsi"
+  }
 
-  communicator = "ssh"
+
+  network_adapters {
+    model = "virtio"
+  }
+
+
+  boot_wait = "10s"
+
+
+  boot_command = [
+    "<esc><wait>",
+    "linux inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
+  ]
+
+
+  http_directory = "http"
+
 
   ssh_username = var.ssh_username
   ssh_password = var.ssh_password
 
   ssh_timeout = "30m"
-
-  http_directory = "./http"
-
-  boot_wait = "10s"
-
-  boot_command = [
-  "<up>",
-  "e",
-  "...",
-  "inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg",
-  "<ctrl-x>"
-  ]
 }
 
+
 build {
+
   sources = [
-    "source.qemu.rocky"
+    "source.proxmox-iso.rocky9"
   ]
+
+
+  provisioner "ansible" {
+
+    playbook_file = "../ansible/site.yml"
+  }
+
+
+  provisioner "shell" {
+
+    inline = [
+      "echo 'Running OpenSCAP verification'",
+      "oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_cis_server_l1 /usr/share/xml/scap/ssg/content/ssg-rl9-ds.xml"
+    ]
+  }
+
 }

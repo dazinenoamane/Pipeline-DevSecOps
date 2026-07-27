@@ -1,0 +1,4 @@
+roles:
+  - name: rhel9_cis
+    src: ansible-lockdown.rhel9_cis
+    version: master

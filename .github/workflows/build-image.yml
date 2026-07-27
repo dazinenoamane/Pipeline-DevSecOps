@@ -1,0 +1,75 @@
+name: build-image
+on: 
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+jobs:
+    validation:
+        name: Valider les fichiers de config
+        runs-on: self-hosted
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: s'assurer que packer est installe
+              run: packer --version
+            - name: s'assurer que ansible est installe
+              run: ansible --version
+            - name: s'assurer que openScap est installe
+              run: oscap --version
+
+            - name: valider la format du packer
+              working-directory: packer
+              run: packer fmt check .
+            - name: valider le packer
+              working-directory: packer
+              run: packer validate .
+            - name: valider la format d'ansible
+              run: ansible-lint ansible/playbook.yml
+            
+    image-build:
+        name: construction de l'image avec hardening
+        runs-on: self-hosted
+        needs: validation
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: installer les dependances ansible
+              working-directory: ansible
+              run: ansible-galaxy install -r ansible/requirements.yml
+
+            - name: initialiser packer
+              working-directory: packer
+              run: packer init .
+
+            - name: construire l'image
+              working-directory: packer
+              run: packer build .
+
+    publication:
+      name: publication d'image
+      runs-on: self-hosted
+      needs: image-build
+      steps:
+        - name: recuperer l'image construite
+          uses: actions/download-artifact@v4
+          with:
+            name: rocky-image
+        
+        - name: vrifier les fichiers generes
+          run: |
+            ls -lh
+            test -f rocky-cis.qcow2
+            test -f openscap-report.html
+            test -f openscap-report.xml
+
+        - name: upload final des artifacts
+          uses: actions/upload-artifact@v4
+          with:
+            name: rocky-cis-final-image
+            path: |
+              rocky-cis.qcow2
+              openscap-report.html
+              openscap-report.xml

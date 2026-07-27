@@ -1,0 +1,16 @@
+---
+# NIVEAU CIS (Level 1 Uniquement)
+rhel9cis_level_1: true
+rhel9cis_level_2: false
+
+# SECTIONS DU BENCHMARK CIS (Actives)
+rhel9cis_section1: true
+rhel9cis_section2: true
+rhel9cis_section3: true
+rhel9cis_section4: true
+rhel9cis_section5: true
+rhel9cis_section6: true
+rhel9cis_section7: true
+
+# Gestion SSH : Ajustez si vous voulez autoriser un utilisateur spécifique
+# rhel9cis_sshd_allowusers: "votre_utilisateur_ansible"

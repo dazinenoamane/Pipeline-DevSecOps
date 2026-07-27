@@ -1,0 +1,6 @@
+- name: Apply CIS Level 1 Hardening on Rocky Linux 9
+  hosts: all
+  become: true
+
+  roles:
+    - rhel9_cis
