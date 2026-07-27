@@ -48,6 +48,15 @@ jobs:
               working-directory: packer
               run: packer build .
 
+            - name: sauvegarder les artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                name: rocky-image
+                path: |
+                  rocky-cis.qcow2
+                  openscap-report.html
+                  openscap-report.xml
+
     publication:
       name: publication d'image
       runs-on: self-hosted
