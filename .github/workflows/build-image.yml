@@ -21,12 +21,12 @@ jobs:
 
             - name: valider la format du packer
               working-directory: packer
-              run: packer fmt check .
+              run: packer fmt -check .
             - name: valider le packer
               working-directory: packer
               run: packer validate .
             - name: valider la format d'ansible
-              run: ansible-lint ansible/playbook.yml
+              run: ansible-lint ansible/site.yml
             
     image-build:
         name: construction de l'image avec hardening
