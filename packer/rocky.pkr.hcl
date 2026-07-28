@@ -24,7 +24,7 @@ source "proxmox-iso" "rocky9" {
 
   disks {
     disk_size = var.disk_size
-    storage   = var.storage
+    storage_pool = var.storage
     type      = "scsi"
   }
 
