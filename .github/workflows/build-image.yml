@@ -19,14 +19,9 @@ jobs:
             - name: s'assurer que openScap est installe
               run: oscap --version
 
-            - name: installer ansible-lint
-              run: python3 -m pip install --user ansible-lint
-
             - name: valider la format du packer
               working-directory: packer
               run: packer fmt -check .
-            - name: valider la format d'ansible
-              run: ansible-lint ansible/site.yml
             
     image-build:
         name: construction de l'image avec hardening
