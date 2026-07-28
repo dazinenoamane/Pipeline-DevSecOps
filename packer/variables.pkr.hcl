@@ -64,3 +64,7 @@ variable "ssh_password" {
   type      = string
   sensitive = true
 }
+
+variable "proxmox_bridge" {
+  type = string
+}

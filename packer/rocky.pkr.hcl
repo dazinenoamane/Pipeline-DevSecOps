@@ -30,8 +30,9 @@ source "proxmox-iso" "rocky9" {
 
 
   network_adapters {
-    model = "virtio"
-  }
+  model  = "virtio"
+  bridge = var.proxmox_bridge
+}
 
 
   boot_wait = "10s"
@@ -62,7 +63,7 @@ build {
 
   provisioner "ansible" {
 
-    playbook_file = "../ansible/site.yml"
+    playbook_file = "${path.root}/../ansible/site.yml"
   }
 
 

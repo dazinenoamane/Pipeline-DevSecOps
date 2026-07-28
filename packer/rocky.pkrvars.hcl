@@ -25,6 +25,8 @@ memory = 2048
 
 disk_size = "20G"
 
-ssh_username = "ubuntu"
+ssh_username = "packer"
 
-ssh_password = "baddaz42684"
+ssh_password = "packer"
+
+proxmox_bridge = "vmbr0"

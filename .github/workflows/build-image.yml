@@ -38,7 +38,7 @@ jobs:
 
             - name: installer les dependances ansible
               working-directory: ansible
-              run: ansible-galaxy install -r ansible/requirements.yml
+              run: ansible-galaxy install -r requirements.yml
 
             - name: initialiser packer
               working-directory: packer
@@ -46,16 +46,8 @@ jobs:
 
             - name: construire l'image
               working-directory: packer
-              run: packer build .
+              run: packer build -var-file=rocky.pkrvars.hcl .
 
-            - name: sauvegarder les artifacts
-              uses: actions/upload-artifact@v4
-              with:
-                name: rocky-image
-                path: |
-                  rocky-cis.qcow2
-                  openscap-report.html
-                  openscap-report.xml
 
     publication:
       name: publication d'image
@@ -67,18 +59,4 @@ jobs:
           with:
             name: rocky-image
         
-        - name: vrifier les fichiers generes
-          run: |
-            ls -lh
-            test -f rocky-cis.qcow2
-            test -f openscap-report.html
-            test -f openscap-report.xml
-
-        - name: upload final des artifacts
-          uses: actions/upload-artifact@v4
-          with:
-            name: rocky-cis-final-image
-            path: |
-              rocky-cis.qcow2
-              openscap-report.html
-              openscap-report.xml
+        
