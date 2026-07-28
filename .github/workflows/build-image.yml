@@ -22,6 +22,14 @@ jobs:
             - name: valider la format du packer
               working-directory: packer
               run: packer fmt -check .
+
+            - name: initialiser packer
+              working-directory: packer
+              run: packer init .
+
+            - name: valider le packer
+              working-directory: packer
+              run: packer validate -var-file=rocky.pkrvars.hcl .
             
     image-build:
         name: construction de l'image avec hardening
@@ -41,7 +49,7 @@ jobs:
 
             - name: valider le packer
               working-directory: packer
-              run: packer validate .
+              run: packer validate -var-file=rocky.pkrvars.hcl .
               
             - name: construire l'image
               working-directory: packer
