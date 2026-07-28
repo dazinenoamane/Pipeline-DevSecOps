@@ -22,9 +22,6 @@ jobs:
             - name: valider la format du packer
               working-directory: packer
               run: packer fmt -check .
-            - name: valider le packer
-              working-directory: packer
-              run: packer validate .
             - name: valider la format d'ansible
               run: ansible-lint ansible/site.yml
             
@@ -44,6 +41,10 @@ jobs:
               working-directory: packer
               run: packer init .
 
+            - name: valider le packer
+              working-directory: packer
+              run: packer validate .
+              
             - name: construire l'image
               working-directory: packer
               run: packer build -var-file=rocky.pkrvars.hcl .

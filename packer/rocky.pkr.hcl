@@ -30,9 +30,9 @@ source "proxmox-iso" "rocky9" {
 
 
   network_adapters {
-  model  = "virtio"
-  bridge = var.proxmox_bridge
-}
+    model  = "virtio"
+    bridge = var.proxmox_bridge
+  }
 
 
   boot_wait = "10s"
