@@ -1,69 +1,69 @@
-source "proxmox-iso" "rocky9" {
+source "vsphere-iso" "rocky9" {
+  vcenter_server      = var.vsphere_server
+  username            = var.vsphere_username
+  password            = var.vsphere_password
+  insecure_connection = var.vsphere_insecure_connection
 
-  proxmox_url = var.proxmox_url
+  datacenter    = var.vsphere_datacenter
+  cluster       = var.vsphere_cluster
+  host          = var.vsphere_host
+  datastore     = var.vsphere_datastore
+  folder        = var.vsphere_folder
+  resource_pool = var.vsphere_resource_pool
 
-  username = var.proxmox_token_id
-  token    = var.proxmox_token_secret
+  vm_name       = var.vm_name
+  guest_os_type = var.guest_os_type
 
+  CPUs = var.cpus
+  RAM  = var.memory
 
-  node = var.proxmox_node
-
-
-  vm_id = var.vm_id
-
-
-  vm_name = var.vm_name
-
-
-  iso_file = var.iso_file
-
-
-  cores  = var.cores
-  memory = var.memory
-
-
-  disks {
-    disk_size = var.disk_size
-    storage_pool = var.storage
-    type      = "scsi"
+  disk_controller_type = [var.disk_controller_type]
+  storage {
+    disk_size             = var.disk_size
+    disk_thin_provisioned = var.disk_thin_provisioned
   }
-
 
   network_adapters {
-    model  = "virtio"
-    bridge = var.proxmox_bridge
+    network      = var.vsphere_network
+    network_card = var.network_card
   }
 
+  iso_paths    = [var.iso_path]
+  cdrom_type   = "sata"
+  remove_cdrom = true
+  boot_order   = "cdrom,disk"
 
   boot_wait = "10s"
-
 
   boot_command = [
     "<esc><wait>",
     "linux inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
   ]
 
-
   http_directory = "http"
 
-
+  communicator = "ssh"
   ssh_username = var.ssh_username
   ssh_password = var.ssh_password
+  ssh_timeout  = "30m"
 
-  ssh_timeout = "30m"
+  shutdown_command    = "echo '${var.ssh_password}' | sudo -S shutdown -P now"
+  convert_to_template = var.convert_to_template
+  destroy             = var.destroy_after_build
 }
 
 
 build {
 
   sources = [
-    "source.proxmox-iso.rocky9"
+    "source.vsphere-iso.rocky9"
   ]
 
 
   provisioner "ansible" {
 
-    playbook_file = "${path.root}/../ansible/site.yml"
+    playbook_file      = "${path.root}/../ansible/site.yml"
+    skip_version_check = true
   }
 
 

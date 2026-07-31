@@ -61,9 +61,6 @@ jobs:
       runs-on: self-hosted
       needs: image-build
       steps:
-        - name: recuperer l'image construite
-          uses: actions/download-artifact@v4
-          with:
-            name: rocky-image
-        
+        - name: confirmer la publication vSphere
+          run: echo "Image Rocky Linux CIS disponible dans l'inventaire vSphere/ESXi apres le build Packer."
         

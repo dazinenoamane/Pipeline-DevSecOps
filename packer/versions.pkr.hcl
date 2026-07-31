@@ -5,9 +5,9 @@ packer {
       source  = "github.com/hashicorp/ansible"
     }
 
-    proxmox = {
-      version = ">= 1.2.0"
-      source  = "github.com/hashicorp/proxmox"
+    vsphere = {
+      version = "= 2.1.2"
+      source  = "github.com/vmware/vsphere"
     }
   }
 }

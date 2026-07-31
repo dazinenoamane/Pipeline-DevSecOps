@@ -1,31 +1,30 @@
-proxmox_url = "https://IP_PROXMOX:8006/api2/json"
+vsphere_server              = "vcenter.example.local"
+vsphere_username            = "svc-packer@vsphere.local"
+vsphere_password            = "CHANGE_ME"
+vsphere_insecure_connection = true
 
-proxmox_token_id = "user@pam!packer"
+vsphere_datacenter    = "Datacenter"
+vsphere_cluster       = "Cluster"
+vsphere_host          = null
+vsphere_datastore     = "datastore1"
+vsphere_folder        = "Templates"
+vsphere_resource_pool = null
+vsphere_network       = "VM Network"
 
-proxmox_token_secret = "xxxxxxxx"
+vm_name       = "rocky9-cis"
+guest_os_type = "rhel9_64Guest"
 
+iso_path = "[datastore1] iso/Rocky-9.8-x86_64-minimal.iso"
 
-proxmox_node = "pve"
+cpus      = 2
+memory    = 2048
+disk_size = 20480
 
+disk_controller_type   = "pvscsi"
+disk_thin_provisioned  = true
+network_card           = "vmxnet3"
+convert_to_template    = false
+destroy_after_build    = false
 
-vm_id = 900
-
-vm_name = "rocky9-cis"
-
-
-iso_file = "local:iso/Rocky-9.8-x86_64-dvd.iso"
-
-
-storage = "local-lvm"
-
-
-cores = 2
-
-memory = 2048
-
-disk_size = "20G"
-
-
-ssh_username = "test"
-
-ssh_password = "test"
+ssh_username = "packer"
+ssh_password = "packer"

@@ -1,32 +1,30 @@
-proxmox_url = "https://fanida:8006/api2/json"
+vsphere_server              = "esxi.example.local"
+vsphere_username            = "packer@vsphere.local"
+vsphere_password            = "CHANGE_ME"
+vsphere_insecure_connection = true
 
-proxmox_token_id = "root@pam!hardening"
+vsphere_datacenter    = null
+vsphere_cluster       = null
+vsphere_host          = "esxi.example.local"
+vsphere_datastore     = "datastore1"
+vsphere_folder        = null
+vsphere_resource_pool = null
+vsphere_network       = "VM Network"
 
-proxmox_token_secret = "e9db8b4c-7068-4af3-8a1f-2d9e53169eb3"
+vm_name       = "rocky9-cis"
+guest_os_type = "rhel9_64Guest"
 
+iso_path = "[datastore1] iso/Rocky-9.8-x86_64-minimal.iso"
 
-proxmox_node = "fanida"
+cpus      = 2
+memory    = 2048
+disk_size = 20480
 
-
-vm_id = 900
-
-vm_name = "rocky9-cis"
-
-
-iso_file = "local:iso/Rocky-9.8-x86_64-minimal.iso"
-
-
-storage = "local-lvm"
-
-
-cores = 2
-
-memory = 2048
-
-disk_size = "20G"
+disk_controller_type  = "pvscsi"
+disk_thin_provisioned = true
+network_card          = "vmxnet3"
+convert_to_template   = false
+destroy_after_build   = false
 
 ssh_username = "packer"
-
 ssh_password = "packer"
-
-proxmox_bridge = "vmbr0"
