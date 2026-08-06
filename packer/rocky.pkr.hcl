@@ -47,7 +47,7 @@ source "vsphere-iso" "rocky9" {
   ssh_password = var.ssh_password
   ssh_timeout  = "30m"
 
-  shutdown_command    = "echo '${var.ssh_password}' | sudo -S shutdown -P now"
+  shutdown_command    = "echo '${var.ssh_password != null ? var.ssh_password : ""}' | sudo -S shutdown -P now"
   convert_to_template = var.convert_to_template
   destroy             = var.destroy_after_build
 }
