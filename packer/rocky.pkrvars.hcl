@@ -1,30 +1,31 @@
-vsphere_server              = "esxi.example.local"
-vsphere_username            = "packer@vsphere.local"
-vsphere_password            = "CHANGE_ME"
+vsphere_server              = "10.31.136.147"
+vsphere_username            = "root"
+vsphere_password            = "VMware1!@"
 vsphere_insecure_connection = true
 
 vsphere_datacenter    = null
 vsphere_cluster       = null
-vsphere_host          = "esxi.example.local"
+vsphere_host          = "10.31.136.147"
 vsphere_datastore     = "datastore1"
 vsphere_folder        = null
 vsphere_resource_pool = null
 vsphere_network       = "VM Network"
 
-vm_name       = "rocky9-cis"
+vm_name       = "rockyPipeline"
 guest_os_type = "rhel9_64Guest"
 
-iso_path = "[datastore1] iso/Rocky-9.8-x86_64-minimal.iso"
+iso_path = "[datastore1] Rocky-9.8-x86_64-dvd.iso"
 
 cpus      = 2
-memory    = 2048
+memory    = 8192
 disk_size = 20480
 
 disk_controller_type  = "pvscsi"
 disk_thin_provisioned = true
 network_card          = "vmxnet3"
-convert_to_template   = false
-destroy_after_build   = false
+
+convert_to_template = false
+destroy_after_build = false
 
 ssh_username = "packer"
 ssh_password = "packer"

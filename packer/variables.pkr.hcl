@@ -1,14 +1,17 @@
 variable "vsphere_server" {
   type = string
+  default = ""
 }
 
 variable "vsphere_username" {
   type = string
+  default = ""
 }
 
 variable "vsphere_password" {
   type      = string
   sensitive = true
+  default   = ""
 }
 
 variable "vsphere_insecure_connection" {
@@ -33,6 +36,7 @@ variable "vsphere_host" {
 
 variable "vsphere_datastore" {
   type = string
+  default = ""
 }
 
 variable "vsphere_folder" {
@@ -47,10 +51,12 @@ variable "vsphere_resource_pool" {
 
 variable "vsphere_network" {
   type = string
+  default = ""
 }
 
 variable "vm_name" {
   type = string
+  default = ""
 }
 
 variable "guest_os_type" {
@@ -60,6 +66,7 @@ variable "guest_os_type" {
 
 variable "iso_path" {
   type = string
+  default = ""
 }
 
 variable "cpus" {
@@ -94,11 +101,13 @@ variable "network_card" {
 
 variable "ssh_username" {
   type = string
+  default = ""
 }
 
 variable "ssh_password" {
   type      = string
   sensitive = true
+  default   = ""
 }
 
 variable "convert_to_template" {

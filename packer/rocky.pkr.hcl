@@ -10,7 +10,7 @@ source "vsphere-iso" "rocky9" {
   datastore     = var.vsphere_datastore
   folder        = var.vsphere_folder
   resource_pool = var.vsphere_resource_pool
-
+  
   vm_name       = var.vm_name
   guest_os_type = var.guest_os_type
 
@@ -31,15 +31,15 @@ source "vsphere-iso" "rocky9" {
   iso_paths    = [var.iso_path]
   cdrom_type   = "sata"
   remove_cdrom = true
-  boot_order   = "cdrom,disk"
+  boot_order   = "disk,cdrom"
 
-  boot_wait = "10s"
+  boot_wait = "5s"
 
-  boot_command = [
-    "<esc><wait>",
-    "linux inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
-  ]
-
+boot_command = [
+  "<tab><wait>",
+  " inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg",
+  "<enter>"
+]
   http_directory = "http"
 
   communicator = "ssh"
@@ -47,7 +47,7 @@ source "vsphere-iso" "rocky9" {
   ssh_password = var.ssh_password
   ssh_timeout  = "30m"
 
-  shutdown_command    = "echo '${var.ssh_password}' | sudo -S shutdown -P now"
+  shutdown_command    = "echo '${var.ssh_password != null ? var.ssh_password : ""}' | sudo -S shutdown -P now"
   convert_to_template = var.convert_to_template
   destroy             = var.destroy_after_build
 }
