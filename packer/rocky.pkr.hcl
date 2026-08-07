@@ -83,6 +83,8 @@ build {
       "-e",
       "ansible_connection=ssh ansible_ssh_transfer_method=piped",
       "-e",
+      "ansible_become_password=${var.ssh_password}",
+      "-e",
       "rhel9cis_authselect_custom_profile_name=cis_rhel9_profile"
     ]
   }
