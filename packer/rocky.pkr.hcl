@@ -66,6 +66,12 @@ build {
     "source.vsphere-iso.rocky9"
   ]
 
+  provisioner "shell-local" {
+    inline = [
+      "ansible-galaxy collection install -r ${path.root}/../ansible/requirements.yml"
+    ]
+  }
+
   provisioner "ansible" {
     playbook_file      = "${path.root}/../ansible/site.yml"
     skip_version_check = true
