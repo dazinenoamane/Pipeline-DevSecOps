@@ -73,8 +73,10 @@ build {
     extra_arguments = [
       "-vvv",
       "--extra-vars",
-      "ansible_python_interpreter=/usr/bin/python3"
-    ]
+      "ansible_python_interpreter=/usr/bin/python3",
+      "-e",
+      "ansible_connection=ssh ansible_ssh_transfer_method=scp"
+  ]
   }
 
   provisioner "shell" {
