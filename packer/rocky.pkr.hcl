@@ -81,7 +81,9 @@ build {
       "--extra-vars",
       "ansible_python_interpreter=/usr/bin/python3",
       "-e",
-      "ansible_connection=ssh ansible_ssh_transfer_method=piped"
+      "ansible_connection=ssh ansible_ssh_transfer_method=piped",
+      "-e",
+      "rhel9cis_authselect_custom_profile_name=cis_rhel9_profile"
     ]
   }
 

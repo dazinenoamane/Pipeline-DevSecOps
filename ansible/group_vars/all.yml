@@ -12,5 +12,8 @@ rhel9cis_section5: true
 rhel9cis_section6: true
 rhel9cis_section7: true
 
-# Gestion SSH : Ajustez si vous voulez autoriser un utilisateur spécifique
+# Authselect: avoid the default profile name rejected by the role.
+rhel9cis_authselect_custom_profile_name: "cis_rhel9_profile"
+
+# Gestion SSH : Ajustez si vous voulez autoriser un utilisateur specifique
 # rhel9cis_sshd_allowusers: "votre_utilisateur_ansible"
