@@ -142,6 +142,9 @@ build {
 
     playbook_file      = "${path.root}/../ansible/site.yml"
     skip_version_check = true
+    extra_arguments = [
+     "-vvv"
+    ]
   }
 
 
