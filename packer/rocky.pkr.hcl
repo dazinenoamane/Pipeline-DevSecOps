@@ -139,14 +139,15 @@ build {
 
 
   provisioner "ansible" {
+  playbook_file      = "${path.root}/../ansible/site.yml"
+  skip_version_check = true
 
-    playbook_file      = "${path.root}/../ansible/site.yml"
-    skip_version_check = true
-    extra_arguments = [
-     "-vvv"
-    ]
-  }
-
+  extra_arguments = [
+    "-vvv",
+    "--extra-vars",
+    "ansible_python_interpreter=/usr/bin/python3"
+  ]
+}
 
   provisioner "shell" {
 
