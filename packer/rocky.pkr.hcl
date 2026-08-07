@@ -14,10 +14,12 @@ source "vsphere-iso" "rocky9" {
   vm_name       = var.vm_name
   guest_os_type = var.guest_os_type
 
-  cpus   = var.cpus
-  memory = var.memory
+  CPUs = var.cpus
+  RAM  = var.memory
 
-  disk_controller_type = var.disk_controller_type
+  disk_controller_type = [
+    var.disk_controller_type
+  ]
 
   storage {
     disk_size             = var.disk_size
